@@ -80,6 +80,10 @@ public final class Central {
     /// Unwrap with `notification.userInfo?["state"] as? CBCentralManagerState`
     public static let CentralStateChange = Notification.Name("SwiftyBluetooth_CentralStateChange")
     
+    /// The name of a `Notification` posted by the Central sharedInstance when the peripheral gets disconnected.
+    /// Unwrap with `notification.userInfo?["uuid"] as? UUID0`
+    public static let CentralPeripheralDisconnected = Notification.Name("SwiftyBluetooth_CentralPeripheralDisconnected")
+    
     /// The sharedInstance Singleton, you can instantiate it yourself by
     /// calling `setSharedInstanceWith(restoreIdentifier: )` which will allow you
     /// to pass in a state preservation identifier. Otherwise, this sharedInstance
