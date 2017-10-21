@@ -350,15 +350,16 @@ extension CentralProxy: CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         let uuid = peripheral.identifier
-        postCentralEvent(Central.CentralPeripheralDisconnected, userInfo: ["uuid": uuid])
 
         guard let request = disconnectRequests[uuid] else {
+                postCentralEvent(Central.CentralPeripheralDisconnected, userInfo: ["uuid": uuid])
             return
         }
         
         disconnectRequests[uuid] = nil
         
         request.invokeCallbacks(error: error)
+        postCentralEvent(Central.CentralPeripheralDisconnected, userInfo: ["uuid": uuid])
     }
     
     func centralManager(_ central: CBCentralManager, didFailToConnect peripheral: CBPeripheral, error: Error?) {
