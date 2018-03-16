@@ -385,6 +385,9 @@ extension CentralProxy: CBCentralManagerDelegate {
         }
         
         let peripheral = Peripheral(peripheral: peripheral)
+        if let name = advertisementData["kCBAdvDataLocalName"] as? String, name.count > 0 {
+            peripheral.advertiseName = advertisementData["kCBAdvDataLocalName"] as? String
+        }
         
         var rssiOptional: Int? = Int(truncating: RSSI)
         if let rssi = rssiOptional, rssi == 127 {
