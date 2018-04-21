@@ -71,6 +71,12 @@ extension Peripheral {
     /// Unwrap the error if any with `notification.userInfo?["error"] as? SBError`
     public static let PeripheralCharacteristicValueUpdate = Notification.Name(rawValue: "SwiftyBluetooth_PharacteristicValueUpdate")
     
+    
+    /// The underlying CBPeripheral
+    public var proxy: CBPeripheral {
+        return self.peripheralProxy.cbPeripheral
+    }
+    
     /// The underlying CBPeripheral identifier
     public var identifier: UUID {
         return self.peripheralProxy.cbPeripheral.identifier
