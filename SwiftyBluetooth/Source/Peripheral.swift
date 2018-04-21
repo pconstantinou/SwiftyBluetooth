@@ -47,7 +47,7 @@ public typealias UpdateNotificationStateCallback = (_ result: SwiftyBluetooth.Re
 
 /// An interface on top of a CBPeripheral instance used to run CBPeripheral related functions with closures based callbacks instead of the usual CBPeripheralDelegate interface.
 public final class Peripheral {
-    fileprivate var peripheralProxy: PeripheralProxy!
+    var peripheralProxy: PeripheralProxy!
     var advertiseName: String?
     
     init(peripheral: CBPeripheral) {
