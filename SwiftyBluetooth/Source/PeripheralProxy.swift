@@ -23,6 +23,8 @@
 
 import CoreBluetooth
 
+public typealias PeripheralNotificationCallback = (_ userInfo: [AnyHashable: Any]) -> Void
+
 final class PeripheralProxy: NSObject  {
     static let defaultTimeoutInS: TimeInterval = 10
     
@@ -39,6 +41,7 @@ final class PeripheralProxy: NSObject  {
     
     fileprivate weak var peripheral: Peripheral?
     let cbPeripheral: CBPeripheral
+    let notifyCallback: PeripheralNotificationCallback?
     
     // Peripheral that are no longer valid must be rediscovered again (happens when for example the Bluetooth is turned off
     // from a user's phone and turned back on
@@ -47,7 +50,7 @@ final class PeripheralProxy: NSObject  {
     init(cbPeripheral: CBPeripheral, peripheral: Peripheral) {
         self.cbPeripheral = cbPeripheral
         self.peripheral = peripheral
-        
+        self.notifyCallback = nil
         super.init()
         
         cbPeripheral.delegate = self
@@ -1099,6 +1102,11 @@ extension PeripheralProxy: CBPeripheralDelegate {
                 var userInfo: [AnyHashable: Any] = ["characteristic": characteristic]
                 if let error = error {
                     userInfo["error"] = error
+                }
+                
+                if let notifyCallback = notifyCallback {
+                    notifyCallback(userInfo)
+                    return
                 }
                 
                 self.postPeripheralEvent(Peripheral.PeripheralCharacteristicValueUpdate, userInfo: userInfo)
