@@ -72,14 +72,10 @@ extension Peripheral {
     public static let PeripheralCharacteristicValueUpdate = Notification.Name(rawValue: "SwiftyBluetooth_PharacteristicValueUpdate")
     
     
-    /// The underlying CBPeripheral
-    public var notifyCallback: PeripheralNotificationCallback? {
-        get {
-            return self.peripheralProxy.notifyCallback
-        }
-        set {
-            self.peripheralProxy.notifyCallback = notifyCallback
-        }
+    /// Set the underlying CBPeripheral notify callback
+    /// If set, NotificationManager will not be used
+    public func setNotifyCallback(_ callback: PeripheralNotificationCallback?) {
+        self.peripheralProxy.notifyCallback = callback
     }
     
     /// The underlying CBPeripheral
