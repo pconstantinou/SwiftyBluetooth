@@ -73,9 +73,20 @@ extension Peripheral {
     
     
     /// The underlying CBPeripheral
+    public var notifyCallback: PeripheralNotificationCallback? {
+        get {
+            return self.peripheralProxy.notifyCallback
+        }
+        set {
+            self.peripheralProxy.notifyCallback = notifyCallback
+        }
+    }
+    
+    /// The underlying CBPeripheral
     public var proxy: CBPeripheral {
         return self.peripheralProxy.cbPeripheral
     }
+    
     
     /// The underlying CBPeripheral identifier
     public var identifier: UUID {

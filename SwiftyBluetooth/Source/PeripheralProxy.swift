@@ -41,7 +41,7 @@ final class PeripheralProxy: NSObject  {
     
     fileprivate weak var peripheral: Peripheral?
     let cbPeripheral: CBPeripheral
-    let notifyCallback: PeripheralNotificationCallback?
+    var notifyCallback: PeripheralNotificationCallback?
     
     // Peripheral that are no longer valid must be rediscovered again (happens when for example the Bluetooth is turned off
     // from a user's phone and turned back on
