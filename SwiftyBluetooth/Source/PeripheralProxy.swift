@@ -26,7 +26,7 @@ import CoreBluetooth
 public typealias PeripheralNotificationCallback = (_ userInfo: [AnyHashable: Any]) -> Void
 
 final class PeripheralProxy: NSObject  {
-    static let defaultTimeoutInS: TimeInterval = 10
+    static var defaultTimeoutInS: TimeInterval = 10
     
     fileprivate lazy var readRSSIRequests: [ReadRSSIRequest] = []
     fileprivate lazy var serviceRequests: [ServiceRequest] = []
