@@ -208,7 +208,8 @@ extension PeripheralProxy {
             return
         }
         
-        self.cbPeripheral.discoverServices(request.serviceUUIDs)
+        //searching for all services works more consistently
+        self.cbPeripheral.discoverServices(nil)
         
         Timer.scheduledTimer(
             timeInterval: PeripheralProxy.defaultTimeoutInS,

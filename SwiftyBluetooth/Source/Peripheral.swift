@@ -83,6 +83,14 @@ extension Peripheral {
         return self.peripheralProxy.cbPeripheral
     }
     
+    public var defaultTimeout: TimeInterval {
+        set {
+            PeripheralProxy.defaultTimeoutInS = newValue
+        }
+        get {
+            return PeripheralProxy.defaultTimeoutInS
+        }
+    }
     
     /// The underlying CBPeripheral identifier
     public var identifier: UUID {
