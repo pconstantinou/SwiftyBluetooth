@@ -208,7 +208,7 @@ extension PeripheralProxy {
             return
         }
         
-        //searching for all services works more consistently
+        self.cbPeripheral.delegate = self
         self.cbPeripheral.discoverServices(nil)
         
         Timer.scheduledTimer(
@@ -287,6 +287,7 @@ extension PeripheralProxy {
             return
         }
         
+        self.cbPeripheral.delegate = self
         self.cbPeripheral.discoverIncludedServices(request.serviceUUIDs, for: request.parentService)
         
         Timer.scheduledTimer(
@@ -385,6 +386,7 @@ extension PeripheralProxy {
             return
         }
         
+        self.cbPeripheral.delegate = self
         self.cbPeripheral.discoverCharacteristics(request.characteristicUUIDs, for: request.service)
         
         Timer.scheduledTimer(
@@ -462,6 +464,7 @@ extension PeripheralProxy {
             return
         }
         
+        self.cbPeripheral.delegate = self
         self.cbPeripheral.discoverDescriptors(for: request.characteristic)
         
         Timer.scheduledTimer(
@@ -545,6 +548,7 @@ extension PeripheralProxy {
             return
         }
         
+        self.cbPeripheral.delegate = self
         self.cbPeripheral.readValue(for: request.characteristic)
         
         Timer.scheduledTimer(
@@ -635,6 +639,7 @@ extension PeripheralProxy {
             return
         }
         
+        self.cbPeripheral.delegate = self
         self.cbPeripheral.readValue(for: request.descriptor)
         
         Timer.scheduledTimer(
@@ -730,6 +735,7 @@ extension PeripheralProxy {
             return
         }
         
+        self.cbPeripheral.delegate = self
         self.cbPeripheral.writeValue(request.value, for: request.characteristic, type: request.type)
         
         if request.type == CBCharacteristicWriteType.withResponse {
@@ -836,6 +842,7 @@ extension PeripheralProxy {
             return
         }
         
+        self.cbPeripheral.delegate = self
         self.cbPeripheral.writeValue(request.value, for: request.descriptor)
         
         Timer.scheduledTimer(
@@ -923,6 +930,7 @@ extension PeripheralProxy {
             return
         }
         
+        self.cbPeripheral.delegate = self
         self.cbPeripheral.setNotifyValue(request.enabled, for: request.characteristic)
         
         Timer.scheduledTimer(
