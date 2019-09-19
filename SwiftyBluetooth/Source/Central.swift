@@ -25,17 +25,17 @@ import CoreBluetooth
 
 // For iOS9 Support
 #if !swift(>=2.3)
-    public typealias CBManagerState = CBCentralManagerState
+public typealias CBManagerState = CBCentralManagerState
 #endif
 
 /**
-    The different results returned in the closure of the Central scanWithTimeout(...) function.
-
-    - ScanStarted: The scan just started.
-    - ScanResult: A Peripheral found result. `RSSI` will be nil if it could not be read.
-    - ScanStopped: The scan ended.
+ The different results returned in the closure of the Central scanWithTimeout(...) function.
  
-*/
+ - ScanStarted: The scan just started.
+ - ScanResult: A Peripheral found result. `RSSI` will be nil if it could not be read.
+ - ScanStopped: The scan ended.
+ 
+ */
 public enum PeripheralScanResult {
     case scanStarted
     case scanResult(peripheral: Peripheral, advertisementData: [String: Any], RSSI: Int?)
@@ -43,14 +43,14 @@ public enum PeripheralScanResult {
 }
 
 /**
-    An enum type whoses rawValues mirror the CBCentralManagerState enum owns Integer values but without the ".Resetting" and ".Unknown" temporary values.
-
-    - Unsupported: CBCentralManagerState.Unsupported
-    - Unauthorized: CBCentralManagerState.Unauthorized
-    - PoweredOff: CBCentralManagerState.PoweredOff
-    - PoweredOn: CBCentralManagerState.PoweredOn
-
-*/
+ An enum type whoses rawValues mirror the CBCentralManagerState enum owns Integer values but without the ".Resetting" and ".Unknown" temporary values.
+ 
+ - Unsupported: CBCentralManagerState.Unsupported
+ - Unauthorized: CBCentralManagerState.Unauthorized
+ - PoweredOff: CBCentralManagerState.PoweredOff
+ - PoweredOn: CBCentralManagerState.PoweredOn
+ 
+ */
 public enum AsyncCentralState: Int {
     case unsupported = 2
     case unauthorized = 3
@@ -106,6 +106,16 @@ public final class Central {
         return _sharedInstance!
     }
     
+    /// Allows you to initially set the sharedInstance and use the restore
+    /// identifier string of your choice for state preservation between app
+    /// launches.
+    @discardableResult
+    public static func setSharedInstanceWith(restoreIdentifier: String?, queue: DispatchQueue?) -> Central {
+        assert(_sharedInstance == nil, "You can only set the sharedInstance of the Central once and you must do so before calling any other SwiftyBluetooth functions.")
+        _sharedInstance = Central(stateRestoreIdentifier: restoreIdentifier, queue: queue)
+        return _sharedInstance!
+    }
+    
     fileprivate let centralProxy: CentralProxy
     
     private init() {
@@ -114,6 +124,10 @@ public final class Central {
     
     private init(stateRestoreIdentifier: String) {
         self.centralProxy = CentralProxy(stateRestoreIdentifier: stateRestoreIdentifier)
+    }
+    
+    private init(stateRestoreIdentifier: String?, queue: DispatchQueue?) {
+        self.centralProxy = CentralProxy(stateRestoreIdentifier: stateRestoreIdentifier, queue: queue)
     }
     
 }

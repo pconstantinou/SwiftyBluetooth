@@ -45,6 +45,15 @@ final class CentralProxy: NSObject {
         self.centralManager = CBCentralManager(delegate: self, queue: nil, options: [CBCentralManagerOptionRestoreIdentifierKey: stateRestoreIdentifier])
     }
     
+    init(stateRestoreIdentifier: String?, queue: DispatchQueue? = nil) {
+        super.init()
+        if let stateRestoreIdentifier = stateRestoreIdentifier{
+            self.centralManager = CBCentralManager(delegate: self, queue: queue, options: [CBCentralManagerOptionRestoreIdentifierKey: stateRestoreIdentifier])
+        } else {
+            self.centralManager = CBCentralManager(delegate: self, queue: queue)
+        }
+    }
+    
     fileprivate func postCentralEvent(_ event: NSNotification.Name, userInfo: [AnyHashable: Any]? = nil) {
         NotificationCenter.default.post(
             name: event,
@@ -350,9 +359,9 @@ extension CentralProxy: CBCentralManagerDelegate {
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         let uuid = peripheral.identifier
-
+        
         guard let request = disconnectRequests[uuid] else {
-                postCentralEvent(Central.CentralPeripheralDisconnected, userInfo: ["uuid": uuid])
+            postCentralEvent(Central.CentralPeripheralDisconnected, userInfo: ["uuid": uuid])
             return
         }
         
@@ -401,5 +410,5 @@ extension CentralProxy: CBCentralManagerDelegate {
         let peripherals = ((dict[CBCentralManagerRestoredStatePeripheralsKey] as? [CBPeripheral]) ?? []).map { Peripheral(peripheral: $0) }
         postCentralEvent(Central.CentralManagerWillRestoreState, userInfo: ["peripherals": peripherals])
     }
-
+    
 }
