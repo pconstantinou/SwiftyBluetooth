@@ -65,6 +65,10 @@ public func stopScan() {
     Central.sharedInstance.stopScan()
 }
 
+public var defaultQueue: DispatchQueue {
+    return Central.sharedInstance.defaultQueue
+}
+
 /// Sometimes, the bluetooth state of your iOS Device/CBCentralManagerState is in an inbetween state of either
 /// ".Unknown" or ".Reseting". This function will wait until the bluetooth state is stable and return a subset
 /// of the CBCentralManager state value which does not includes these values in its completion closure.

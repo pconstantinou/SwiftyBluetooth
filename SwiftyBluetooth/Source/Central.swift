@@ -182,6 +182,10 @@ extension Central {
         return self.centralProxy.centralManager.isScanning
     }
     
+    public var defaultQueue: DispatchQueue {
+        return self.centralProxy.queue ?? DispatchQueue.main
+    }
+    
     /// Attempts to return the periperals from a list of identifier "UUID"s
     public func retrievePeripherals(withUUIDs uuids: [CBUUIDConvertible]) -> [Peripheral] {
         let uuids = uuids.flatMap { UUID(uuidString: $0.CBUUIDRepresentation.uuidString)  }

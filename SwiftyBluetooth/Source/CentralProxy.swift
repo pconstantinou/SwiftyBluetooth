@@ -31,6 +31,8 @@ final class CentralProxy: NSObject {
     fileprivate lazy var connectRequests: [UUID: ConnectPeripheralRequest] = [:]
     fileprivate lazy var disconnectRequests: [UUID: DisconnectPeripheralRequest] = [:]
     
+    var queue: DispatchQueue?
+    
     var centralManager: CBCentralManager!
     
     override init() {
@@ -47,11 +49,14 @@ final class CentralProxy: NSObject {
     
     init(stateRestoreIdentifier: String?, queue: DispatchQueue? = nil) {
         super.init()
+        self.queue = queue
         if let stateRestoreIdentifier = stateRestoreIdentifier{
             self.centralManager = CBCentralManager(delegate: self, queue: queue, options: [CBCentralManagerOptionRestoreIdentifierKey: stateRestoreIdentifier])
         } else {
             self.centralManager = CBCentralManager(delegate: self, queue: queue)
         }
+        
+        
     }
     
     fileprivate func postCentralEvent(_ event: NSNotification.Name, userInfo: [AnyHashable: Any]? = nil) {

@@ -42,6 +42,7 @@
 		09D515301D2DA90A00049B59 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		09D515311D2DA90A00049B59 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		09DEF3B01CC839DE00F9B4EE /* CBUUIDConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CBUUIDConvertible.swift; path = Source/CBUUIDConvertible.swift; sourceTree = "<group>"; };
+		BCCCE99723C8D82700F2DB4B /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		C5317C9C1EC658E5007179BC /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Result.swift; path = Source/Result.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -69,6 +70,7 @@
 		096409A41CC6103D00ADD4D9 = {
 			isa = PBXGroup;
 			children = (
+				BCCCE99723C8D82700F2DB4B /* Package.swift */,
 				09D515301D2DA90A00049B59 /* LICENSE */,
 				09D515311D2DA90A00049B59 /* README.md */,
 				09D5152E1D2DA8F900049B59 /* SwiftyBluetooth.podspec */,
@@ -173,6 +175,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 096409A41CC6103D00ADD4D9;
